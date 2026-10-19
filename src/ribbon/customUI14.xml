@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='utf-8'?>
+<customUI xmlns="http://schemas.microsoft.com/office/2009/07/customui" onLoad="CAP100_OnLoad">
+  <ribbon>
+    <tabs>
+      <tab id="capIndexTab" label="CAP Index">
+        <group id="capPrepGroup" label="Crime Data Prep">
+          <button id="capCheck" label="Dataset Check + Coverage" size="large" onAction="CAP100_DatasetCheck" screentip="New sheet: dataset quality, monthly coverage, crime counts and field completeness" image="check-32" />
+          <button id="capReview" label="Duplicate / Case Review" size="large" onAction="CAP100_OnAction" screentip="Review exact duplicates, repeated incident IDs and all distinct crime types associated with each incident; no rows removed" image="review-32" />
+        </group>
+        <group id="capScopeGroup" label="Analysis Scope">
+          <toggleButton id="capScopeAll" label="All Rows" getPressed="CAP100_ScopePressed" onAction="CAP100_ScopeClick" image="scopeall-16" />
+          <toggleButton id="capScopeVisible" label="Visible Rows Only" getPressed="CAP100_ScopePressed" onAction="CAP100_ScopeClick" image="scopevisible-16" />
+        </group>
+        <group id="capClassificationGroup" label="Classification">
+          <button id="capCrosswalk" label="Prepare NIBRS Crosswalk" onAction="CAP100_OnAction" screentip="Create agency-specific reviewed mapping; no broad crime-label inference" image="crosswalk-16" />
+          <button id="capNIBRS" label="Apply NIBRS Crosswalk" onAction="CAP100_OnAction" screentip="Active crosswalk: apply approved codes to a new working dataset" image="classification-16" />
+        </group>
+        <group id="capGeoGroup" label="Geography">
+          <control idMso="PowerMapLaunch" />
+          <control idMso="ChartTypeMapsInsertGallery" />
+          <button id="capBlocks" label="Hundred-Block Builder" size="large" onAction="CAP100_OnAction" screentip="New Hundred_Blocks working table: selected source fields/rows plus hundred-block address and review status" image="block-32" />
+          <button id="capBlockRandom" label="Randomize Block Addresses" size="large" onAction="CAP100_OnAction" screentip="Generate labeled synthetic house numbers within agency hundred blocks" supertip="1200 and 12XX are treated as the 1200-1299 range. Creates a new Randomized_Addresses sheet with selected fields, hundred block, synthetic address and review status. A repeatable seed and optional IncidentID keep repeated offense rows together. Generated numbers do not recover true incident locations." image="random-32" />
+          <button id="capCensus" label="Census Geocoder" size="large" onAction="CAP100_OnAction" screentip="Create Full Address and geocode distinct addresses in batches" supertip="Sends only address components and generated request IDs to the US Census Bureau. Creates a new Geocoded_Addresses sheet with matched address, coordinates, match quality and review flags. Shows progress; Esc cancels. Completed batch results are retained." image="geocode-32" />
+        </group>
+        <group id="capDateGroup" label="Date &amp; Time">
+          <button id="capDateTime" label="Timestamp Fields" size="large" onAction="CAP100_OnAction" screentip="Select a timestamp column; insert six date fields, plus Time Only and Hour when valid times exist" supertip="Handles mixed dates and timestamps. Text dates use US month/day/year or ISO format. All-date-only sources omit Time Only and Hour. Mixed sources retain both, with date-only rows blank. Existing columns shift right. Refreshes fields previously created by this tool." image="timestamp-32" />
+          <button id="capHour" label="Hour from Time" size="large" onAction="CAP100_OnAction" screentip="Select one Time column including its header; insert only Hour (0-23) beside it" image="hour-32" />
+        </group>
+        <group id="capAnalysisGroup" label="Crime Analysis">
+          <button id="capSingleSite" label="Single Site" size="large" onAction="CAP100_OnAction" screentip="Crime within 0.25, 0.5 and 1 mile of a site; approximate straight-line distances" image="site-32" />
+          <button id="capRefresh" label="Refresh Report" onAction="CAP100_OnAction" screentip="Refresh active supported report from saved data; rebuild to reload changed source" image="refresh-16" />
+          <button id="capReset" label="Reset to All" onAction="CAP100_OnAction" screentip="Reset crime filter to All; retain dates, measure and other settings" image="reset-16" />
+          <button id="capPareto" label="Crime Concentration" size="large" onAction="CAP100_OnAction" screentip="Create a concentration dashboard with a crime-type filter and three charts" supertip="Map hundred-block key, crime type and optional IncidentID. Measures top 1%, 5%, 10% and 20% shares using only blocks with the selected crime. Reports actual rounded block shares, coverage and incident/record distinctions." image="concentration-32" />
+          <button id="capHeatmap" label="Temporal Heat Map" size="large" onAction="CAP100_OnAction" screentip="Choose inputs first: Date/Time, or Day of Week and Hour/Time. Then select headers and data, including Crime Type." image="heatmap-32" />
+          <button id="capRepeat" label="Repeat Locations" size="large" onAction="CAP100_OnAction" screentip="Select Address and Crime Type, with optional IncidentID/City/State. No date or time required." image="repeat-32" />
+          <button id="capHotStreets" label="Hot Streets" size="large" onAction="CAP100_OnAction" screentip="Select Hundred Block, Crime Type and Date. Time is not required. Choose week/month intervals on the new report." image="hotstreets-32" />
+        </group>
+        <group id="capReportingGroup" label="Reporting &amp; Export">
+          <button id="capYoY" label="Year over Year" onAction="CAP100_OnAction" image="yoy-16" />
+          <button id="capSeasonality" label="Seasonality" onAction="CAP100_OnAction" image="seasonality-16" />
+          <button id="capReportBuilder" label="Select Report Sections" onAction="CAP100_OnAction" screentip="New selector sheet: Include, Order, Section Title and Tables/Charts/Both" image="selectreport-16" />
+          <button id="capExportSelected" label="Export Selected Report" onAction="CAP100_OnAction" screentip="Active report selector: export combined PDF or PowerPoint" image="export-16" />
+          <button id="capTrends" label="Monthly / Annual Trends" size="large" onAction="CAP100_OnAction" screentip="Date and Crime Type; optional IncidentID. Includes zero-record periods and flags partial comparisons." image="trends-32" />
+          <button id="capCompare" label="Period Comparison" size="large" onAction="CAP100_OnAction" screentip="Compare two periods by crime type or qualified location; includes count differences and daily rates." image="compare-32" />
+          <button id="capProfile" label="Crime Profile" size="large" onAction="CAP100_OnAction" screentip="Incident/offense totals, crime mix, coverage and top repeat addresses or blocks." image="profile-32" />
+          <button id="capSaveImage" label="Save Image" onAction="CAP100_OnAction" screentip="Save a selected chart or formatted report range as PNG." image="image-16" />
+          <button id="capPowerPoint" label="PowerPoint Briefing" onAction="CAP100_OnAction" screentip="Choose report sheets; create summary and chart slides as static pictures, without embedding source workbooks." image="powerpoint-16" />
+          <button id="capPDF" label="Save Report PDF" onAction="CAP100_OnAction" screentip="Export the active CAP report, including charts, with landscape pagination." image="pdf-16" />
+        </group>
+        <group id="capExcelGroup" label="Excel Essentials">
+          <control idMso="Filter" />
+          <control idMso="SortCustomExcel" />
+          <control idMso="ViewFreezePanesGallery" />
+          <control idMso="PivotTableInsert" />
+          <control idMso="TableInsertExcel" />
+          <control idMso="SortClear" label="Clear Filters" />
+          <control idMso="ConvertTextToTable" label="Text to Columns" />
+          <control idMso="FindDialogExcel" />
+          <control idMso="ConditionalFormattingMenu" />
+        </group>
+        <group id="capValidationGroup" label="Help &amp; About">
+          <menu id="capHelpMenu" label="CAP Index" size="large" image="cap-logo-32" screentip="CAP Index | Help &amp; About" supertip="Open the Tool Guide or CAP Index ownership and publisher information.">
+            <button id="capOwnership" label="About CAP Index" onAction="CAP100_OnAction" screentip="Publisher, copyright and ownership notice" image="about-16" />
+            <button id="capHelp" label="Help / Tool Guide" onAction="CAP100_OnAction" image="guide-16" />
+          </menu>
+        </group>
+      </tab>
+    </tabs>
+  </ribbon>
+</customUI>

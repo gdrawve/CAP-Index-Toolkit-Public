@@ -1,0 +1,50 @@
+# Local builds, regression exports and source backups
+/build/
+/history/
+/imports/
+/tmp/
+/output/
+
+# Office workbooks/add-ins and data files are not source control inputs.
+*.xlam
+*.xls
+*.xlsx
+*.xlsm
+*.xlsb
+*.xltx
+*.xltm
+*.csv
+*.tsv
+*.parquet
+*.feather
+*.pptx
+*.pdf
+# Reviewed, entirely synthetic fixture used by the toolkit.
+!/tests/fixtures/crime-synthetic.csv
+
+# Local credentials, caches and application state
+.env
+.env.*
+*.pem
+*.key
+*.pfx
+*.p12
+*.log
+*.tmp
+~$*
+.DS_Store
+Thumbs.db
+Desktop.ini
+__pycache__/
+*.pyc
+node_modules/
+.codex/
+.vscode/
+.idea/
+
+# One-off development/migration helpers; release tooling remains tracked.
+/tools/wire015.py
+/tools/style016.py
+/tools/Inspect-Excel.ps1
+/tools/Diagnose-Census.ps1
+/tools/Inspect-Icons.ps1

@@ -1,0 +1,15 @@
+CAP Index Crime Analysis Excel Toolkit
+Copyright (c) 2026 CAP Index
+
+The toolkit's original software, build scripts, generic tool icons and
+documentation are licensed under the MIT License. See LICENSE for the complete
+permissions, notice requirement and warranty disclaimer. Retain the copyright
+and license notices in copies or substantial portions of the software.
+
+CAP Index names, logos and logo artwork are addressed separately in BRANDING.md.
+The software license does not grant trademark rights or imply CAP endorsement.
+
+Source agency data, third-party software, Microsoft/Esri products and Census
+services retain their respective ownership and terms. This notice makes no
+claim to ownership of crime facts, analytical methods or third-party material.
+Toolkit attribution does not transfer ownership of users' data or findings.
