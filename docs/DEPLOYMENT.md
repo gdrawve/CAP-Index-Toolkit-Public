@@ -35,3 +35,9 @@ No production install, signing or company-wide deployment is performed by the bu
 ## Unsigned public release and internal policy
 
 The public release is unsigned. Internal deployment is subject to CAP Index IT policy, including signing where required. The build report does not establish CAP policy or imply that public GitHub distribution is awaiting signing. Adoption feedback can inform future signing and support priorities; it does not override an internal requirement. See the README for first-time download verification and installation.
+
+## Public build metadata
+
+Builds use a neutral process-local Forms cache; the bootstrap helper is removed before importing release source. Final packaging removes the saved workbook folder hint, preserves classification metadata, scans for personal profile paths and reopens the cleaned add-in for native checks. It does not patch compiled VBA or alter machine/user security settings.
+
+A public build must receive CAP-approved sensitivity-label and organization IDs plus a classification justification through local build parameters. Do not commit those local policy values or strip an Internal label to make a file appear public. If classification approval is unavailable, complete documentation and development validation but do not publish the new binary. Recalculate hashes after metadata changes and after any later signing.

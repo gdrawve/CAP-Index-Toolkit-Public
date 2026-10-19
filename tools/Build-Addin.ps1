@@ -1,5 +1,7 @@
-param([string]$ProjectRoot = (Split-Path -Parent $PSScriptRoot), [switch]$LiveCensusSmoke)
+param([string]$ProjectRoot = (Split-Path -Parent $PSScriptRoot), [switch]$LiveCensusSmoke,
+    [switch]$PublicRelease, [string]$PublicSensitivityLabelId = '', [string]$PublicSensitivitySiteId = '', [string]$PublicLabelJustification = '')
 $ErrorActionPreference = 'Stop'
+if ($PublicRelease -and (-not $PublicSensitivityLabelId -or -not $PublicSensitivitySiteId -or -not $PublicLabelJustification)) { throw 'A public release requires an approved label ID, tenant ID and recorded classification justification. Do not strip label metadata.' }
 $ProjectRoot = [IO.Path]::GetFullPath($ProjectRoot)
 $coreText = [IO.File]::ReadAllText((Join-Path $ProjectRoot 'src\vba\modCore.bas'))
 $versionMatch = [regex]::Match($coreText, 'CAP_VERSION As String = "([^"]+)"')
@@ -19,6 +21,8 @@ try {
     $excel.EnableEvents = $false
     $book = $excel.Workbooks.Add()
     try { $null = $book.VBProject.VBComponents.Count } catch { throw 'Excel blocks VBA project access. Use an IT-approved build workstation or manual VBA import. This script does not change Trust Center settings.' }
+    $cachePath = Join-Path ([Environment]::GetFolderPath('CommonApplicationData')) ('CAPIndex\ToolkitBuildCache\' + $stamp)
+    & (Join-Path $PSScriptRoot 'Add-BuildEnvironment.ps1') -Excel $excel -Book $book -CachePath $cachePath
     $importDir = Join-Path $buildDir 'imports'
     [void](New-Item -ItemType Directory -Path $importDir)
     foreach ($file in Get-ChildItem -LiteralPath (Join-Path $ProjectRoot 'src\vba') -File | Where-Object { $_.Extension -in @('.bas','.cls') }) {
@@ -39,6 +43,16 @@ try {
     $book.VBProject.VBComponents.Item('ThisWorkbook').CodeModule.AddFromString("Private Sub Workbook_Open()`r`nInitializeCAPEvents`r`nEnd Sub`r`nPrivate Sub Workbook_BeforeClose(Cancel As Boolean)`r`nSet CAPEvents = Nothing`r`nEnd Sub")
     $excel.Run("'" + $book.Name + "'!StampCAPAddinMetadata")
     $book.IsAddin = $true
+    if ($PublicRelease) {
+        $labelInfo = $book.SensitivityLabel.CreateLabelInfo()
+        $labelInfo.LabelId = $PublicSensitivityLabelId
+        $labelInfo.SiteId = $PublicSensitivitySiteId
+        $labelInfo.AssignmentMethod = 0
+        $labelInfo.Justification = $PublicLabelJustification
+        $book.SensitivityLabel.SetLabel($labelInfo, $labelInfo)
+        $savedLabel = $book.SensitivityLabel.GetLabel()
+        if ($savedLabel.LabelId.Trim('{}') -ne $PublicSensitivityLabelId.Trim('{}')) { throw 'Excel did not apply the approved public sensitivity classification.' }
+    }
     $book.SaveAs($addinPath, 55)
     $book.Close($false)
     $book = $excel.Workbooks.Open($addinPath)
@@ -188,7 +202,7 @@ try {
     $report += 'Packaged About: ' + $excel.Run("'" + $book.Name + "'!CheckCAPAbout")
     $report += 'Packaged reopen: ' + $excel.Run("'" + $book.Name + "'!RunBuildCheck", "RunSelfTests")
     $report += 'Ribbon display and Maps launch: manual acceptance pending'
-    $report += 'Unsigned release package; company deployment pending applicable signing and acceptance'
+    $report += 'Unsigned release. Internal deployment is subject to CAP Index IT policy, including signing where required.'
     Add-Type -AssemblyName System.Drawing
     foreach ($png in Get-ChildItem -LiteralPath $buildDir -Filter '*.png' -File) {
         $bitmap = [Drawing.Bitmap]::new($png.FullName)
@@ -206,9 +220,24 @@ try {
         } finally { $bitmap.Dispose() }
     }
     $report += 'Generated PNGs: nonblank pixel validation passed'
-    $report | Set-Content -LiteralPath (Join-Path $buildDir 'validation.txt') -Encoding UTF8
+
     $book.Close($false); $book = $null
     $excel.Quit(); [void][Runtime.InteropServices.Marshal]::FinalReleaseComObject($excel); $excel = $null
+    $expectedPublicLabel = if ($PublicRelease) { $PublicSensitivityLabelId } else { '' }
+    $report += & (Join-Path $PSScriptRoot 'Protect-PackageMetadata.ps1') -Path $addinPath -ExpectedSensitivityLabelId $expectedPublicLabel
+    # Reopen after metadata cleanup. Never save again before final verification.
+    $excel = New-Object -ComObject Excel.Application
+    $excel.Visible = $false; $excel.DisplayAlerts = $false; $excel.EnableEvents = $false
+    $book = $excel.Workbooks.Open($addinPath)
+    foreach ($checkName in @('CheckCAPAbout','CheckCAPSetup','RunSelfTests','RunSetupTests')) {
+        $cleanResult = $excel.Run("'" + $book.Name + "'!" + $checkName)
+        if ($cleanResult -notlike 'PASS:*') { throw ('Cleaned package validation failed: ' + $checkName) }
+        $report += 'Cleaned package ' + $checkName + ': ' + $cleanResult
+    }
+    $book.Close($false); $book = $null
+    $excel.Quit(); [void][Runtime.InteropServices.Marshal]::FinalReleaseComObject($excel); $excel = $null
+    $report += & (Join-Path $PSScriptRoot 'Protect-PackageMetadata.ps1') -Path $addinPath -VerifyOnly -ExpectedSensitivityLabelId $expectedPublicLabel
+    $report | Set-Content -LiteralPath (Join-Path $buildDir 'validation.txt') -Encoding UTF8
     Move-Item -LiteralPath $addinPath -Destination $releasePath
     $addinPath = $releasePath
     $hash = Get-FileHash -LiteralPath $addinPath -Algorithm SHA256

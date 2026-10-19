@@ -1,6 +1,6 @@
 {
   "name": "cap-index-crime-analysis-toolkit",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "private": true,
   "license": "MIT",
   "description": "Optional development tooling for CAP Index ribbon assets",

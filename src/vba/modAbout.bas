@@ -16,9 +16,9 @@ Public Function CAPAboutChanges() As String
         "- Tool-specific help stays inside the window. Cancel creates no output." & vbCrLf & _
         "- Correctable run errors keep the setup choices available for retry." & vbCrLf & _
         "- Remembered mappings use explicit field roles; contaminated older Address/City/Block mappings are ignored." & vbCrLf & _
-        "- MIT licensing now covers original toolkit code and documentation; CAP branding is addressed separately." & vbCrLf & vbCrLf & _
+        "- Public-release packaging checks personal build paths and the approved sensitivity classification. Installation guidance includes Unblock and SHA256 verification." & vbCrLf & vbCrLf & _
         "Contact: Grant Drawve, gdrawve@capindex.com." & vbCrLf & vbCrLf & _
-        "This package is unsigned; company deployment requires applicable signing and acceptance. Windows desktop Excel is required."
+        "Unsigned release. Internal deployment follows CAP Index IT policy, including signing where required. Windows desktop Excel is required."
 End Function
 Public Function CAPAboutMethods() As String
     CAPAboutMethods = "Data handling" & vbCrLf & _

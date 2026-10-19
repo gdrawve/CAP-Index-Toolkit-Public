@@ -3,7 +3,7 @@ Attribute VB_Name = "modCore"
 ' Toolkit software only; source data and third-party material retain their ownership.
 ' See LICENSE and OWNERSHIP-NOTICE.txt. Retain copyright and license notices.
 Option Explicit
-Public Const CAP_VERSION As String = "1.2.2"
+Public Const CAP_VERSION As String = "1.2.3"
 
 Public Function PickSource(Optional ByVal requirements As String = "") As Range
     Dim r As Range

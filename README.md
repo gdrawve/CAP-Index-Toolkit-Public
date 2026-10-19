@@ -2,7 +2,7 @@
 
 The CAP Index Crime Analysis Excel Toolkit helps crime analysts prepare incident and offense data, examine patterns across places and time, and produce consistent reports within Excel. It brings common analytical tasks into one ribbon to reduce repetitive work and make workflows easier to repeat. Results support descriptive analysis and require review of data quality, coverage, and counting definitions.
 
-Version 1.2.2 is the first public release of the Windows desktop Excel VBA/RibbonX add-in. Geography tools create complete working Excel Tables on new named sheets, copying only selected fields and rows, including headers plus relevant generated results. Hour from Time supports datasets whose date and time are separate. Analysis prompts state the required inputs before selection. Reporting & Export now adds trends, period comparisons, crime profiles, PNG images, static PowerPoint briefings and PDFs. Mapping changes are deferred; existing Maps/3D Maps commands remain. This package is unsigned.
+Version 1.2.3 is the public baseline for the Windows desktop Excel VBA/RibbonX add-in. The CAP Index ribbon brings together data preparation, geography, date and time fields, reviewed NIBRS classification, crime analysis, Excel essentials, and reporting/export. Sixteen tools share a branded setup window with field dropdowns, options, validation, and tool-specific help. This package is unsigned.
 
 Copyright (c) 2026 CAP Index. Original toolkit code and documentation are licensed under the [MIT License](LICENSE). CAP names and logos are covered separately by [Branding](BRANDING.md). See [Ownership Notice](OWNERSHIP-NOTICE.txt). Source agency data and third-party material retain their respective ownership.
 
@@ -10,12 +10,12 @@ Download the installable package from [GitHub Releases](https://github.com/gdraw
 
 ## First-time installation
 
-1. Download `CAP-Index-Toolkit-release-1.2.2.zip` from [GitHub Releases](https://github.com/gdrawve/CAP-Index-Toolkit-Public/releases/latest). Use the installable release ZIP, not the automatic source-code archive.
+1. Download `CAP-Index-Toolkit-release-1.2.3.zip` from [GitHub Releases](https://github.com/gdrawve/CAP-Index-Toolkit-Public/releases/latest). Use the installable release ZIP, not the automatic source-code archive.
 2. Extract the ZIP to a permanent local folder. Keep the add-in, `LICENSE`, `BRANDING.md`, `OWNERSHIP-NOTICE.txt`, `SHA256.txt` and `validation.txt` together.
 3. Before opening the add-in, open PowerShell in that folder and run:
 
    ```powershell
-   Get-FileHash -LiteralPath '.\CAP-Index-Toolkit-1.2.2.xlam' -Algorithm SHA256
+   Get-FileHash -LiteralPath '.\CAP-Index-Toolkit-1.2.3.xlam' -Algorithm SHA256
    ```
 
    Compare the returned Hash with the value beside the same filename in `SHA256.txt` and the digest displayed for that add-in on GitHub Releases. Letter case does not matter. If they differ, do not install that copy. The checksum verifies file integrity, not publisher identity or safety. [Microsoft checksum guidance](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-filehash).
@@ -125,7 +125,7 @@ CAP-Index-Toolkit/
 
   build/<timestamp>/
 
-    CAP-Index-Toolkit-1.2.2.xlam
+    CAP-Index-Toolkit-1.2.3.xlam
 
     validation.txt
 
@@ -150,10 +150,21 @@ It reflects the spirit of [CAP Index's Data for Good initiative](https://capinde
 cheers\
 Grant Drawve
 
-## Version 1.2.2 (first public release)
+## Version 1.2.3 — public baseline
 
-The first public release includes crime data preparation, hundred-block tools, Census geocoding, temporal and location analyses, reviewed NIBRS classification, and reporting/export tools. Sixteen tools share a CAP-branded setup window with field dropdowns, options, validation and tool-specific help.
+This is the starting point for public installation, use, and future development. The release includes:
 
-Original toolkit code and documentation are MIT licensed. CAP ownership attribution remains; names and logos have separate branding terms. See [1.2.2 release notes](docs/RELEASE-1.2.2.md) and the [deployment guide](docs/DEPLOYMENT.md).
+- Dataset Check and Coverage, duplicate/case review, and analysis scope controls.
+- Timestamp and hour fields, hundred-block datasets, randomized block addresses, and Census batch geocoding.
+- Reviewed NIBRS crosswalks, temporal heat maps, repeat locations, Hot Streets, and hundred-block crime concentration.
+- Trends, period comparisons, year-over-year and seasonality views, and single-site distance analysis.
+- Report selection, PNG images, static PowerPoint briefings, and PDF exports.
+- Consistent setup windows, ribbon icons, tool help, and Excel essentials.
+
+The package uses CAP's approved Public sensitivity classification, excludes personal build-folder hints and personal Forms cache references, and is reopened and validated in Excel after packaging. SHA256 verification and installation instructions appear above.
+
+Use the tool-input table and data definitions to review counting, coverage, geocoding, and synthetic-location limitations. Live Census submission and manual pilot acceptance are separate from automated validation. The add-in remains unsigned; internal deployment follows CAP Index IT policy.
+
+Original code and documentation are MIT licensed, with separate CAP branding terms. See [baseline release notes](docs/RELEASE-1.2.3.md) and the [deployment guide](docs/DEPLOYMENT.md).
 
 [View the tool setup window](docs/setup-window-1.2.0.png).
