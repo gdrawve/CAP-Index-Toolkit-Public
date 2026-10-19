@@ -1,24 +1,12 @@
 # CAP Index Crime Analysis Excel Toolkit
 
-
-
-Version 1.2.2 is the current release; 1.0.0 was the first versioned release of the Windows desktop Excel VBA/RibbonX add-in. Builds 0.x were testing and exploration builds. Geography tools create complete working Excel Tables on new named sheets, copying only selected fields and rows, including headers plus relevant generated results. Hour from Time supports datasets whose date and time are separate. Analysis prompts state the required inputs before selection. Reporting & Export now adds trends, period comparisons, crime profiles, PNG images, static PowerPoint briefings and PDFs. Mapping changes are deferred; existing Maps/3D Maps commands remain. This package is unsigned.
-
-
+Version 1.2.2 is the first public release of the Windows desktop Excel VBA/RibbonX add-in. Geography tools create complete working Excel Tables on new named sheets, copying only selected fields and rows, including headers plus relevant generated results. Hour from Time supports datasets whose date and time are separate. Analysis prompts state the required inputs before selection. Reporting & Export now adds trends, period comparisons, crime profiles, PNG images, static PowerPoint briefings and PDFs. Mapping changes are deferred; existing Maps/3D Maps commands remain. This package is unsigned.
 
 Copyright (c) 2026 CAP Index. Original toolkit code and documentation are licensed under the [MIT License](LICENSE). CAP names and logos are covered separately by [Branding](BRANDING.md). See [Ownership Notice](OWNERSHIP-NOTICE.txt). Source agency data and third-party material retain their respective ownership.
-
-
-
-Version 0.10.0 adds ownership notices in VBA source, add-in metadata, the About CAP Index ribbon command and generated outputs.
-
-
 
 Download the installable package from [GitHub Releases](https://github.com/gdrawve/CAP-Index-Toolkit-Public/releases/latest). Choose the release ZIP containing the .xlam add-in and license files; the automatic source-code archives are for development.
 
 ## Start
-
-
 
 1. Work from a copy of the dataset. Disable the previous CAP Index add-in, then use File > Options > Add-ins > Manage Excel Add-ins > Go > Browse to enable this version's `.xlam`.
 
@@ -30,11 +18,7 @@ Download the installable package from [GitHub Releases](https://github.com/gdraw
 
 5. Rebuild analyses after source changes; their crime/measure controls recalculate a saved hidden snapshot. Save the data workbook to retain results. No automatic source-workbook save occurs.
 
-
-
 ## Tool inputs and results
-
-
 
 | Tool | Required inputs | Results |
 |---|---|---|
@@ -56,23 +40,13 @@ Download the installable package from [GitHub Releases](https://github.com/gdraw
 | Save Report PDF | Active CAP report sheet | Landscape report PDF with charts and page numbering |
 | Maps / 3D Maps | Appropriate map-ready data | Excel's existing commands |
 
-
-
 Use stable incident IDs to count unique incidents. Source-record mode counts offense rows separately. City/state fields prevent identical address text in different jurisdictions being combined. If omitted, the selected source must already represent one jurisdiction or supply a qualified location key. Street aliases and address spelling variations require review. Synthetic addresses estimate positions within blocks and do not recover actual incident locations.
-
-
 
 The heat map accepts existing Day of Week and Hour fields without requiring dates. Day names may be Monday-Sunday or Mon-Sun; numeric weekdays are rejected because numbering conventions differ. Hot Streets needs dates to place events in intervals; hundred block and crime type alone support concentration, not temporal change. Empty periods are observed source counts, not verified zero-crime periods.
 
-
-
 See [Reporting & Export](docs/REPORTING-EXPORT.md), [current dataset changes](docs/WORKFLOWS-0.8.md) and [revised workflows](docs/WORKFLOWS-0.7.md) and the detailed behavior documents for counting definitions and limits.
 
-
-
 ## Files
-
-
 
 ```text
 
@@ -97,7 +71,6 @@ CAP-Index-Toolkit/
         modBlockTests.bas
 
         modReview.bas
-
 
         modPareto.bas
 
@@ -135,7 +108,7 @@ CAP-Index-Toolkit/
 
   build/<timestamp>/
 
-    CAP-Index-Toolkit-0.5.0.xlam
+    CAP-Index-Toolkit-1.2.2.xlam
 
     validation.txt
 
@@ -143,42 +116,18 @@ CAP-Index-Toolkit/
 
 ```
 
-
-
 Build from source using `tools/Build-Addin.ps1` on a Windows Excel build workstation. It imports VBA into a new workbook, saves format 55, runs assertions, adds RibbonX package parts, reopens the add-in and reruns assertions. It does not change macro security, install the add-in, or touch existing workbooks. Build outputs receive new timestamp folders. Failed builds contain `FAILED.txt`; do not deploy those folders.
-
-
 
 When upgrading, disable the old add-in entry and browse to the new version so only one CAP Index tab is loaded. Prior builds remain available for rollback. Timestamp Fields, Census Geocoder and the two block tools follow the user's in-sheet workflows. PrepareCensus and BuildHundredBlocksLegacy remain in VBA for compatibility and regression checks; they are not ribbon actions.
 
-
-
 Crime Concentration stores a hidden local source snapshot for filtering. It contains incident IDs, so share an approved summary/export when those identifiers are sensitive. Rebuild after source edits. Live selector updates require the enabled Windows Excel add-in; the report identifies its displayed filter/measure and flags changed filters that have not been refreshed.
-
-
 
 See [data definitions](docs/DATA-CONTRACT.md), [build plan](docs/BUILD-PLAN.md) and [deployment](docs/DEPLOYMENT.md).
 
-## Version 1.0.0
+## Version 1.2.2 (first public release)
 
-The current toolkit becomes the v1 baseline. Earlier 0.x builds remain testing and exploration history. No analytical calculations change in this version. Disable older CAP Index add-ins before enabling CAP-Index-Toolkit-1.0.0.xlam. See [v1 release notes](docs/RELEASE-1.0.0.md).
+The first public release includes crime data preparation, hundred-block tools, Census geocoding, temporal and location analyses, reviewed NIBRS classification, and reporting/export tools. Sixteen tools share a CAP-branded setup window with field dropdowns, options, validation and tool-specific help.
 
-## Version 1.1.0
+Original toolkit code and documentation are MIT licensed. CAP ownership attribution remains; names and logos have separate branding terms. See [1.2.2 release notes](docs/RELEASE-1.2.2.md) and the [deployment guide](docs/DEPLOYMENT.md).
 
-Crime Concentration clarifies its selected-crime populated-block denominator. Hot Streets adds a Minimum comparison events control at B9 (default 2), counting the early and late windows combined. Geography tools copy only selected rows and fields, including headers. Census Geocoder repairs numeric/short ZIPs and flags inferred ZIP+4 and leading-zero repairs for verification. Range-image exports also retry CopyPicture failures with alternate formats. See [1.1.0 release notes](docs/RELEASE-1.1.0.md).
-
-## Version 1.2.0
-
-Sixteen tools share one CAP-branded setup window: selected range and counts, field dropdowns, options, inline validation and tool-specific help. Run is enabled only for a complete setup. Cancel or Help creates no output sheet; a failed run preserves choices for retry (completed output may remain). Geography tools still process only selected rows and fields. Analysis Scope and all existing calculations/report controls are unchanged. Timestamp, Hour, exports, Refresh and Reset retain their existing entry flow. New explicit role mappings avoid the old City/Address/ZIP confusion. See [1.2.0 release notes](docs/RELEASE-1.2.0.md).
-
-Disable older CAP Index add-ins and restart Excel before enabling version 1.2.0. Use the packaged .xlam file to install the complete ribbon, icons, and setup windows. See the [deployment guide](docs/DEPLOYMENT.md) for build validation and installation details.
-
-[View the 1.2.0 setup window](docs/setup-window-1.2.0.png).
-
-## Version 1.2.1
-
-Maintenance cleanup removes retired score recategorization code and internal workbook references. Current ribbon tools and analytical behavior are unchanged. See [1.2.1 release notes](docs/RELEASE-1.2.1.md).
-
-## Version 1.2.2
-
-Original toolkit software and documentation are now MIT licensed. CAP ownership attribution remains; names and logos have separate branding terms. In-app notices and distribution packaging reflect the license. Analytical behavior is unchanged. See [1.2.2 release notes](docs/RELEASE-1.2.2.md).
+[View the tool setup window](docs/setup-window-1.2.0.png).
