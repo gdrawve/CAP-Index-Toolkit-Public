@@ -1,10 +1,27 @@
 # CAP Index Crime Analysis Excel Toolkit
 
+The CAP Index Crime Analysis Excel Toolkit helps crime analysts prepare incident and offense data, examine patterns across places and time, and produce consistent reports within Excel. It brings common analytical tasks into one ribbon to reduce repetitive work and make workflows easier to repeat. Results support descriptive analysis and require review of data quality, coverage, and counting definitions.
+
 Version 1.2.2 is the first public release of the Windows desktop Excel VBA/RibbonX add-in. Geography tools create complete working Excel Tables on new named sheets, copying only selected fields and rows, including headers plus relevant generated results. Hour from Time supports datasets whose date and time are separate. Analysis prompts state the required inputs before selection. Reporting & Export now adds trends, period comparisons, crime profiles, PNG images, static PowerPoint briefings and PDFs. Mapping changes are deferred; existing Maps/3D Maps commands remain. This package is unsigned.
 
 Copyright (c) 2026 CAP Index. Original toolkit code and documentation are licensed under the [MIT License](LICENSE). CAP names and logos are covered separately by [Branding](BRANDING.md). See [Ownership Notice](OWNERSHIP-NOTICE.txt). Source agency data and third-party material retain their respective ownership.
 
 Download the installable package from [GitHub Releases](https://github.com/gdrawve/CAP-Index-Toolkit-Public/releases/latest). Choose the release ZIP containing the .xlam add-in and license files; the automatic source-code archives are for development.
+
+## First-time installation
+
+1. Download `CAP-Index-Toolkit-release-1.2.2.zip` from [GitHub Releases](https://github.com/gdrawve/CAP-Index-Toolkit-Public/releases/latest). Use the installable release ZIP, not the automatic source-code archive.
+2. Extract the ZIP to a permanent local folder. Keep the add-in, `LICENSE`, `BRANDING.md`, `OWNERSHIP-NOTICE.txt`, `SHA256.txt` and `validation.txt` together.
+3. Before opening the add-in, open PowerShell in that folder and run:
+
+   ```powershell
+   Get-FileHash -LiteralPath '.\CAP-Index-Toolkit-1.2.2.xlam' -Algorithm SHA256
+   ```
+
+   Compare the returned Hash with the value beside the same filename in `SHA256.txt` and the digest displayed for that add-in on GitHub Releases. Letter case does not matter. If they differ, do not install that copy. The checksum verifies file integrity, not publisher identity or safety. [Microsoft checksum guidance](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-filehash).
+4. For the reviewed download, right-click the extracted `.xlam` in File Explorer, select **Properties**, then **Unblock** and **Apply** if the Unblock option appears. This addresses Windows' internet-file marking; it does not override an organization's security policy. [Microsoft guidance for Excel add-ins](https://learn.microsoft.com/en-us/microsoft-365-apps/security/internet-macros-blocked).
+5. Disable older CAP Index add-ins, close every Excel window, and reopen Excel. Select **File > Options > Add-ins > Manage: Excel Add-ins > Go > Browse**, select the extracted `.xlam`, and enable its checkbox. The CAP Index ribbon tab should appear.
+6. Work from a copy of your dataset. If company policy blocks the add-in, contact IT rather than disabling macro protections globally. This release is unsigned; internal deployment follows CAP Index IT policy, including signing where required.
 
 ## Start
 
@@ -123,6 +140,15 @@ When upgrading, disable the old add-in entry and browse to the new version so on
 Crime Concentration stores a hidden local source snapshot for filtering. It contains incident IDs, so share an approved summary/export when those identifiers are sensitive. Rebuild after source edits. Live selector updates require the enabled Windows Excel add-in; the report identifies its displayed filter/measure and flags changed filters that have not been refreshed.
 
 See [data definitions](docs/DATA-CONTRACT.md), [build plan](docs/BUILD-PLAN.md) and [deployment](docs/DEPLOYMENT.md).
+
+## A note from Grant
+
+I developed this toolkit to make everyday crime analysis more accessible and reduce the repetitive preparation that takes time away from understanding the data.
+
+It reflects the spirit of [CAP Index's Data for Good initiative](https://capindex.com/data-for-good/): expanding access to analytical resources and supporting responsible research and informed decisions. My goal is to give analysts and researchers practical tools they can use, examine, and improve while keeping data quality, context, and interpretation central to their work.
+
+cheers\
+Grant Drawve
 
 ## Version 1.2.2 (first public release)
 

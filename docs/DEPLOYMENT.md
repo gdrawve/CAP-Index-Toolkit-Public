@@ -12,16 +12,16 @@ Target: Windows desktop Excel with VBA and RibbonX. Excel for the web cannot run
 
 1. Build on an approved Windows Excel workstation. VBA project object-model access is needed only for automated building, not normal end-user use. If access is blocked, manually import the standard `.bas` modules and `.cls` class module using Windows CRLF/ANSI import files, compile the VBA project, save a new workbook as `.xlam`, then inject the supplied RibbonX with a suitable packaging editor. The build script produces correctly formatted import files in its build folder. Do not relax company security settings to build.
 2. Review `validation.txt` and SHA256. Complete the pilot checklist in BUILD-PLAN.md. A successful native macro run establishes compilation of exercised paths, not visual acceptance of the ribbon.
-3. Sign the finalized VBA project with the company-approved code-signing certificate using IT's signing process. Run package/content changes before signing. Verify signature validity on the final artifact, then calculate its final release hash. Any code change requires a new version, tests and signature.
-4. Publish an immutable versioned release through the company software distribution mechanism. Retain the prior signed version and its hash for rollback.
+3. Follow CAP Index IT policy for internal deployment. If that policy requires signing, sign the finalized VBA project with an approved certificate using IT's process. Complete packaging before signing, verify the signature, and calculate the final hash afterward. Code changes require new validation and, when signed, a new signature. Public GitHub availability does not establish an internal signing requirement.
+4. Publish an immutable versioned release through the company software distribution mechanism. Retain the prior approved version and its hash for rollback.
 
 Install only the final versioned `.xlam` from a successful build folder containing `validation.txt` and `SHA256.txt` and no `FAILED.txt`. Files marked `UNVALIDATED` are intermediate build products. Importing VBA alone does not install the ribbon, embedded icons or setup forms.
 
 ## Install
 
-Install a local per-user or IT-managed copy of the signed `.xlam`, then enable it through Excel Add-ins. Use the company-approved trusted publisher/location policy and connected-experience policy. Do not disable macro protections globally. Network/OneDrive locations may have availability, concurrent edit, synchronization or trust issues; the selected OneDrive folder is a development workspace, not automatically the final execution location.
+Install a local per-user or IT-managed copy of the approved `.xlam`, then enable it through Excel Add-ins. Use the company-approved trusted publisher/location policy and connected-experience policy. Do not disable macro protections globally. Network/OneDrive locations may have availability, concurrent edit, synchronization or trust issues; the selected OneDrive folder is a development workspace, not automatically the final execution location.
 
-Close Excel before replacing the installed add-in. Ensure only one toolkit version is enabled. Update the release manifest/version and pilot package; do not overwrite user data. Roll back by disabling the new add-in and restoring/enabling the prior signed artifact. The toolkit adds output sheets but has no automated undo or source-workbook save.
+Close Excel before replacing the installed add-in. Ensure only one toolkit version is enabled. Update the release manifest/version and pilot package; do not overwrite user data. Roll back by disabling the new add-in and restoring/enabling the prior approved artifact. The toolkit adds output sheets but has no automated undo or source-workbook save.
 
 ## Operating controls
 
@@ -31,3 +31,7 @@ Close Excel before replacing the installed add-in. Ensure only one toolkit versi
 - Product owner approves classification thresholds, address normalization and future transformations. Document and validate changes to analytical definitions before release.
 
 No production install, signing or company-wide deployment is performed by the build script.
+
+## Unsigned public release and internal policy
+
+The public release is unsigned. Internal deployment is subject to CAP Index IT policy, including signing where required. The build report does not establish CAP policy or imply that public GitHub distribution is awaiting signing. Adoption feedback can inform future signing and support priorities; it does not override an internal requirement. See the README for first-time download verification and installation.
