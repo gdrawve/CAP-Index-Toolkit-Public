@@ -1,8 +1,8 @@
-# CAP Index Toolkit 0.15.0
+# Analysis Scope, Classification and Calendar Reports
 
 ## Excel Essentials
 
-Native Excel commands: Filter, Custom Sort, Freeze Panes, PivotTable, Table, Clear Filters, Text to Columns, Find, and Conditional Formatting. These commands also remain on their original Excel tabs and operate on the current selection. Clear Filters changes the visible source rows; it does not change a report's saved snapshot. Refresh Report remains the single CAP analytical refresh button.
+Native Excel commands: Filter, Custom Sort, Freeze Panes, PivotTable, Table, Clear Filters, Text to Columns, Find, and Conditional Formatting. These commands also remain on their original Excel tabs and operate on the current selection. Clear Filters changes the visible source rows; it does not change a report's saved snapshot. Refresh Report is the single CAP analytical refresh button.
 
 ## NIBRS classification
 
@@ -44,4 +44,4 @@ Comparable years and average events per full calendar month are shown. The daily
 
 PDF contains full selected report tables and separate captioned chart pages. PowerPoint contains summary table pictures and chart slides, without embedding the source workbook. Long summary tables can be truncated according to the report's summary note; use PDF for full tables. Section selections, titles and order persist with the saved workbook. Refresh the reports before export; deleted reports or stale selectors produce an explanatory error. Recreate the selector to list newly created reports.
 
-Sections retain their own crime filters, periods, count measures and scope. The builder does not combine totals from different sections. Review outputs before distribution. Mapping automation remains deferred. This is an unsigned development/pilot add-in; company deployment still requires the deployment checks in DEPLOYMENT.md.
+Sections retain their own crime filters, periods, count measures and scope. The builder does not combine totals from different sections. Review outputs before distribution. Mapping uses Excel's existing commands. The public add-in is unsigned; internal deployment follows the controls in [Deployment](DEPLOYMENT.md).

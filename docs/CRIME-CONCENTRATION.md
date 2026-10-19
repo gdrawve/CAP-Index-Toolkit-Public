@@ -1,27 +1,20 @@
-> Version 0.7.0 changes the user workflow and visible fields. See WORKFLOWS-0.7.md and README.md; older in-sheet examples below describe the retained calculation engine.
-
 # Crime Concentration report
 
-Version 0.5.0. CAP Index > Crime Analysis > Crime Concentration creates a new report sheet with a crime-type dropdown, count-measure dropdown, concentration summaries, a ranked block table and three native Excel charts.
+CAP Index > Crime Analysis > Crime Concentration creates a new report sheet with a crime-type dropdown, count-measure dropdown, concentration summaries, a ranked block table and three native Excel charts.
 
 ## Create the report
 
-Select a rectangle containing headers and source data, then map:
-
-- Hundred-block key: usually CAP_BlockKey from Hundred-Block Builder. Include city/state/jurisdiction in the key; a street name alone combines different hundred blocks.
-- Optional readable hundred-block label: usually CAP_HundredBlock, for chart labels.
-- Crime-type field: the user selects the actual source header, such as CrimeType, OffenseDescription, or CrimeCategory. No classifications are invented.
-- Optional IncidentID: provide a key unique across agencies/years to use distinct-incident counts. Without it, the initial measure is Source records.
+Select headers and source data, open the setup window, and map Hundred Block (usually CAP_HundredBlock), Crime Type and optional IncidentID/City/State. Use a qualified geographic identifier or map jurisdiction fields to avoid merging identical address text across cities. Choose source records or unique incidents; incident keys must be unique across agencies/years. New analyses follow the workbook's [Analysis Scope](ANALYSIS-WORKFLOWS.md).
 
 Original data remains intact. The report owns a local, very hidden snapshot sheet containing only the mapped incident ID, block key/label, crime category, incident-validity tag and source row. Both sheets are saved in the source workbook. Rebuild the report from source after data changes; filter changes operate on the captured snapshot, not on live source cells or an external database. Hidden data is not anonymization: share an approved summary/export if the workbook's incident IDs are sensitive.
 
 ## Filter behavior
 
-Blue cells B4 and B5 select Crime type and Count measure. The crime dropdown offers All crime types plus observed categories. Nonblank source categories are trimmed and normalized for case/repeated spaces, displayed as Type: CATEGORY to distinguish them from the All/missing/error options. Missing crime types and source cell errors have separate selectable categories; All includes them rather than silently losing their activity.
+Use the blue Crime type and Count measure controls. New reports place the crime selector at B3. The crime dropdown offers All crime types plus observed categories. Nonblank source categories are trimmed and normalized for case/repeated spaces, displayed as Type: CATEGORY to distinguish them from the All/missing/error options. Missing crime types and source cell errors have separate selectable categories; All includes them rather than silently losing their activity.
 
 Changing either selector refreshes the report automatically while the CAP Index add-in is enabled and Excel events are active. Initialization is performed on add-in open and Ribbon load. Refresh Report on the ribbon recalculates the active report when an automatic event was disabled. Displayed crime and Displayed measure identify the actual saved chart/metric selection. A worksheet formula flags changed filters when displayed values have not been refreshed. With macros/add-in disabled, filters cannot rebuild the charts; enable the add-in and refresh. The underlying source snapshot still needs rebuilding after source edits.
 
-The user explicitly selected the denominator **only hundred blocks with the selected crime**. Accordingly, the block universe contains positive eligible activity for the selected crime and selected measure. It changes when the crime filter changes. No zero-crime streets outside the source are inferred. Results do not claim coverage of all streets in a city.
+The denominator includes **only hundred blocks with the selected crime**. Accordingly, the block universe contains positive eligible activity for the selected crime and selected measure. It changes when the crime filter changes. No zero-crime streets outside the source are inferred. Results do not claim coverage of all streets in a city.
 
 ## Measures and exclusions
 
@@ -56,4 +49,4 @@ This is a descriptive analysis inspired by crime-concentration research. Address
 
 ## Verification
 
-Native tests verify a synthetic 100-incident/20-block dataset where the top 5% accounts for exactly 65%, an extra offense row that changes record counts but not unique incidents, automatic robbery/theft/All filters, a changing selected-crime denominator, small-sample rounding, three chart series and histogram reconciliation, source preservation, exclusion coverage, stale-filter warnings, and invalid/empty states. All three chart images were exported in native Excel and visually inspected. No real crime dataset was supplied or sent externally. Version 0.5.0 remains an unsigned pilot.
+Native tests verify a synthetic 100-incident/20-block dataset where the top 5% accounts for exactly 65%, an extra offense row that changes record counts but not unique incidents, automatic robbery/theft/All filters, a changing selected-crime denominator, small-sample rounding, three chart series and histogram reconciliation, source preservation, exclusion coverage, stale-filter warnings, and invalid/empty states. Regression fixtures are synthetic; they do not establish the quality or completeness of an agency dataset. See the baseline release validation report for automated checks and separate manual acceptance limits.

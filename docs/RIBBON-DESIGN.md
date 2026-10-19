@@ -1,4 +1,4 @@
-# CAP Index ribbon design - 0.17.0
+# CAP Index Ribbon Design
 
 Ribbon order: Crime Data Prep, Analysis Scope, Classification, Geography, Date & Time, Crime Analysis, Reporting & Export, Excel Essentials, Help & About.
 

@@ -61,81 +61,23 @@ Use stable incident IDs to count unique incidents. Source-record mode counts off
 
 The heat map accepts existing Day of Week and Hour fields without requiring dates. Day names may be Monday-Sunday or Mon-Sun; numeric weekdays are rejected because numbering conventions differ. Hot Streets needs dates to place events in intervals; hundred block and crime type alone support concentration, not temporal change. Empty periods are observed source counts, not verified zero-crime periods.
 
-See [Reporting & Export](docs/REPORTING-EXPORT.md), [current dataset changes](docs/WORKFLOWS-0.8.md) and [revised workflows](docs/WORKFLOWS-0.7.md) and the detailed behavior documents for counting definitions and limits.
+See the [documentation index](docs/README.md), [data preparation guide](docs/DATA-PREP.md) and [Reporting & Export](docs/REPORTING-EXPORT.md) for workflows, counting definitions and limits.
 
 ## Files
 
 ```text
-
-CAP-Index-Toolkit/
-
-  README.md
-
-  src/
-
-    ribbon/customUI14.xml
-
-    vba/modCore.bas
-
-        modRibbon.bas
-
-        modDateTime.bas
-
-        modGeography.bas
-
-        modHundredBlocks.bas
-
-        modBlockTests.bas
-
-        modReview.bas
-
-        modPareto.bas
-
-        modConcentration.bas
-
-        modConcentrationTests.bas
-
-        clsCAPEvents.cls
-
-        modCensus.bas
-
-        modCensusGeocode.bas
-
-        modCensusTransport.bas
-
-        modCensusTests.bas
-
-        clsCensusFixture.cls
-
-        modTests.bas
-
-  docs/
-
-    BUILD-PLAN.md
-
-    DATA-CONTRACT.md
-
-    DEPLOYMENT.md
-
-    SOURCES.md
-
-  tests/fixtures/crime-synthetic.csv
-
-  tools/Build-Addin.ps1
-
-  build/<timestamp>/
-
-    CAP-Index-Toolkit-1.2.3.xlam
-
-    validation.txt
-
-    SHA256.txt
-
+src/vba/            Exported VBA modules and classes
+src/forms/          Setup and About form assets
+src/ribbon/         RibbonX, icons and CAP brand assets
+docs/               Current guides and baseline documentation
+tests/fixtures/     Synthetic test data
+tools/              Build, form and icon tooling
+build/<timestamp>/  Local build outputs (not committed)
 ```
 
 Build from source using `tools/Build-Addin.ps1` on a Windows Excel build workstation. It imports VBA into a new workbook, saves format 55, runs assertions, adds RibbonX package parts, reopens the add-in and reruns assertions. It does not change macro security, install the add-in, or touch existing workbooks. Build outputs receive new timestamp folders. Failed builds contain `FAILED.txt`; do not deploy those folders.
 
-When upgrading, disable the old add-in entry and browse to the new version so only one CAP Index tab is loaded. Prior builds remain available for rollback. Timestamp Fields, Census Geocoder and the two block tools follow the user's in-sheet workflows. PrepareCensus and BuildHundredBlocksLegacy remain in VBA for compatibility and regression checks; they are not ribbon actions.
+When upgrading, disable the old add-in entry and browse to the new version so only one CAP Index tab is loaded. Prior builds remain available for rollback. Timestamp and Hour fields are inserted beside the selected source column; geography tools create new working datasets.
 
 Crime Concentration stores a hidden local source snapshot for filtering. It contains incident IDs, so share an approved summary/export when those identifiers are sensitive. Rebuild after source edits. Live selector updates require the enabled Windows Excel add-in; the report identifies its displayed filter/measure and flags changed filters that have not been refreshed.
 
@@ -167,4 +109,4 @@ Use the tool-input table and data definitions to review counting, coverage, geoc
 
 Original code and documentation are MIT licensed, with separate CAP branding terms. See [baseline release notes](docs/RELEASE-1.2.3.md) and the [deployment guide](docs/DEPLOYMENT.md).
 
-[View the tool setup window](docs/setup-window-1.2.0.png).
+[View the tool setup window](docs/setup-window.png).

@@ -16,11 +16,11 @@ Use a short branch, validate changes in Windows desktop Excel, and document resu
 
 Run tools/Build-Addin.ps1 on an approved Windows Excel build workstation. VBA project access is needed for building, not normal add-in use. Do not change recipients' security settings to build or run the toolkit. Included PNG assets let ordinary builds run without Node; npm install and npm run icons are optional developer steps for regenerating icons.
 
-## Public publication
+## Public repository
 
-Preserve the private development repository and its history. Prepare a separate reviewed source snapshot for a new public repository with a clean initial commit. Copy only approved tracked files; exclude .git, old builds, backups, workbooks and generated reports. Do not mirror private branches or version tags into the new public repository.
+This repository is the reviewed public source for the v1.2.3 baseline and later development. Keep earlier development briefs and historical planning documents in the private repository. Do not mirror private branches or tags into this repository.
 
-Removing content from the latest files does not remove it from earlier commits or tags. A public source repository exposes the implementation and included development documents. Review that scope before changing visibility. Retain the designated professional contact and CAP ownership notices.
+Review staged changes for confidential data and local metadata before pushing. Removing a file from the current tree does not remove earlier commits or release assets. Keep the designated professional contact and CAP ownership notices.
 
 ## Releases
 
