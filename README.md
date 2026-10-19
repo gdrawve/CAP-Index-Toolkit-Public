@@ -90,7 +90,7 @@ I developed this toolkit to make everyday crime analysis more accessible and red
 It reflects the spirit of [CAP Index's Data for Good initiative](https://capindex.com/data-for-good/): expanding access to analytical resources and supporting responsible research and informed decisions. My goal is to give analysts and researchers practical tools they can use, examine, and improve while keeping data quality, context, and interpretation central to their work.
 
 cheers\
-Grant Drawve
+Grant
 
 ## Version 1.2.3 — public baseline
 
